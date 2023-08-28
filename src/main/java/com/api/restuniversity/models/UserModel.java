@@ -27,10 +27,8 @@ public class UserModel implements Serializable {
     private String password;
     @Column(nullable = false)
     private Permission permissions;
-    @Column(nullable = false)
+
     private LocalDateTime createdAt;
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
-    @Column(nullable = false)
     private LocalDateTime deletedAt;
 }
