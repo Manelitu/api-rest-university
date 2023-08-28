@@ -3,6 +3,7 @@ package com.api.restuniversity.controllers;
 import com.api.restuniversity.dtos.UserDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
+import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.services.UserService;
 import jakarta.validation.Valid;
@@ -13,6 +14,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -44,5 +48,10 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(userService.list(pageable));
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<UserModel>> listUserById(@PathVariable(value = "id")UUID id) throws NotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.listById(id));
     }
 }
