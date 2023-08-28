@@ -7,6 +7,8 @@ import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +41,8 @@ public class UserService {
         return userRepository.save(userModel);
     }
 
-    public List<UserModel> list() {
-        return userRepository.findAll();
+    public Page<UserModel> list(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }
 
