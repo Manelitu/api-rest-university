@@ -1,6 +1,8 @@
 package com.api.restuniversity.controllers;
 
 import com.api.restuniversity.dtos.UserDto;
+import com.api.restuniversity.exceptions.BadRequestException;
+import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto) {
+    public ResponseEntity<Object> createUser(@RequestBody @Valid UserDto userDto) throws BadRequestException, ConflictException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.create(userDto));
