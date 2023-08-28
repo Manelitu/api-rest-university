@@ -15,5 +15,5 @@ public class UserDto {
     @NotBlank
     private String name;
     @NotBlank
-    private Permission permissions;
+    private String permissions;
 }
