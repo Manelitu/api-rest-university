@@ -14,7 +14,7 @@ public class CreateUserDto {
     @NotBlank
     private String name;
     @NotBlank
-    private String permissions;
+    private String roles;
 }
 
 
