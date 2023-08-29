@@ -1,6 +1,7 @@
 package com.api.restuniversity.controllers;
 
-import com.api.restuniversity.dtos.UserDto;
+import com.api.restuniversity.dtos.users.CreateUserDto;
+import com.api.restuniversity.dtos.users.UpdateUserDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
@@ -30,10 +31,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> createUser(@RequestBody @Valid UserDto userDto) throws BadRequestException, ConflictException {
+    public ResponseEntity<UserModel> createUser(@RequestBody @Valid CreateUserDto createUserDto) throws BadRequestException, ConflictException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(userService.create(userDto));
+                .body(userService.create(createUserDto));
     }
 
     @GetMapping
@@ -54,4 +55,13 @@ public class UserController {
     public ResponseEntity<Optional<UserModel>> listUserById(@PathVariable(value = "id")UUID id) throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listById(id));
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserModel> updateUser(
+            @PathVariable(value = "id") UUID id,
+            @RequestBody @Valid UpdateUserDto updateUserDto
+    ) throws NotFoundException, BadRequestException {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(id, updateUserDto));
+    }
+
 }
