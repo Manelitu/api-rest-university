@@ -56,6 +56,7 @@ public class UserService {
         return existUser;
     }
 
+    @Transactional
     public UserModel update(UUID id, UpdateUserDto updateUserDto) throws NotFoundException, BadRequestException {
         UserModel existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(UserModel.class, "id"));
