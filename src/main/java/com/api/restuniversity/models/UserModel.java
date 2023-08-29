@@ -1,6 +1,7 @@
 package com.api.restuniversity.models;
 
 import com.api.restuniversity.enums.Permission;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class UserModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(nullable = false)
     private Permission permissions;
