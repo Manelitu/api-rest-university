@@ -8,11 +8,13 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -40,16 +42,17 @@ public class UserModel implements UserDetails, Serializable {
     @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
-    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
+    @Column(nullable = true, updatable = true, columnDefinition = "TIMESTAMP")
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime updatedAt;
-    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
+    @Column(nullable = true, updatable = true, columnDefinition = "TIMESTAMP")
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime deletedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (this.roles == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
