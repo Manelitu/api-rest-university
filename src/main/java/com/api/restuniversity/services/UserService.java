@@ -39,6 +39,7 @@ public class UserService {
         ZoneId zoneid = ZoneId.of("UTC");
         LocalDateTime now = LocalDateTime.now(zoneid);
 
+        userModel.setCreatedAt(now);
         return userRepository.save(userModel);
     }
 
