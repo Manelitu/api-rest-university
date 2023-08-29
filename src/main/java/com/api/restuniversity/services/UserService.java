@@ -1,6 +1,7 @@
 package com.api.restuniversity.services;
 
-import com.api.restuniversity.dtos.UserDto;
+import com.api.restuniversity.dtos.users.CreateUserDto;
+import com.api.restuniversity.dtos.users.UpdateUserDto;
 import com.api.restuniversity.enums.Permission;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
@@ -27,11 +28,11 @@ public class UserService {
     }
 
     @Transactional
-    public UserModel create(UserDto userDto) throws ConflictException, BadRequestException {
+    public UserModel create(CreateUserDto createUserDto) throws ConflictException, BadRequestException {
         var userModel = new UserModel();
-        Permission permission = Permission.valueOf(userDto.getPermissions());
+        Permission permission = Permission.valueOf(createUserDto.getPermissions());
 
-        BeanUtils.copyProperties(userDto, userModel);
+        BeanUtils.copyProperties(createUserDto, userModel);
 
         userModel.setPermissions(permission);
 
@@ -53,6 +54,34 @@ public class UserService {
         }
 
         return existUser;
+    }
+
+    public UserModel update(UUID id, UpdateUserDto updateUserDto) throws NotFoundException, BadRequestException {
+        UserModel existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(UserModel.class, "id"));
+
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
+
+        UserModel userModel = new UserModel();
+        BeanUtils.copyProperties(updateUserDto, userModel);
+        userModel.setId(id);
+        userModel.setCreatedAt(existingUser.getCreatedAt());
+        userModel.setUpdatedAt(now);
+        userModel.setPassword(existingUser.getPassword());
+
+        if (!updateUserDto.getEmail().isEmpty()) {
+            userModel.setEmail(updateUserDto.getEmail());
+        }
+
+        if (!updateUserDto.getPermissions().isEmpty()) {
+            userModel.setPermissions(Permission.valueOf(updateUserDto.getPermissions()));
+        }
+
+        if (!updateUserDto.getName().isEmpty()) {
+            userModel.setName(updateUserDto.getName());
+        }
+
+        return userModel;
     }
 }
 
