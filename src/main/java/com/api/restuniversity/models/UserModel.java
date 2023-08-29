@@ -39,15 +39,12 @@ public class UserModel implements UserDetails, Serializable {
     @Column(nullable = true)
     private Boolean active = true;
 
-    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
-    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+    @Column(name="created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(nullable = true, updatable = true, columnDefinition = "TIMESTAMP")
-    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
-    private LocalDateTime updatedAt;
-    @Column(nullable = true, updatable = true, columnDefinition = "TIMESTAMP")
-    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
-    private LocalDateTime deletedAt;
+    @Column(name="updated_at", nullable = true, updatable = true)
+    private LocalDateTime updatedAt = null;
+    @Column(name="deleted_at", nullable = true, updatable = true)
+    private LocalDateTime deletedAt = null;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
