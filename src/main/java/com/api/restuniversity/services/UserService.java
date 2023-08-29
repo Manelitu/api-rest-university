@@ -2,7 +2,7 @@ package com.api.restuniversity.services;
 
 import com.api.restuniversity.dtos.users.CreateUserDto;
 import com.api.restuniversity.dtos.users.UpdateUserDto;
-import com.api.restuniversity.enums.Permission;
+import com.api.restuniversity.enums.Roles;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
@@ -30,11 +30,11 @@ public class UserService {
     @Transactional
     public UserModel create(CreateUserDto createUserDto) throws ConflictException, BadRequestException {
         var userModel = new UserModel();
-        Permission permission = Permission.valueOf(createUserDto.getPermissions());
+        Roles permission = Roles.valueOf(createUserDto.getPermissions());
 
         BeanUtils.copyProperties(createUserDto, userModel);
 
-        userModel.setPermissions(permission);
+        userModel.setRoles(permission);
 
         ZoneId zoneid = ZoneId.of("UTC");
         LocalDateTime now = LocalDateTime.now(zoneid);
@@ -76,7 +76,7 @@ public class UserService {
         }
 
         if (!updateUserDto.getPermissions().isEmpty()) {
-            userModel.setPermissions(Permission.valueOf(updateUserDto.getPermissions()));
+            userModel.setRoles(Roles.valueOf(updateUserDto.getPermissions()));
         }
 
         if (!updateUserDto.getName().isEmpty()) {
