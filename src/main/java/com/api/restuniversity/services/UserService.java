@@ -30,7 +30,7 @@ public class UserService {
     @Transactional
     public UserModel create(CreateUserDto createUserDto) throws ConflictException, BadRequestException {
         var userModel = new UserModel();
-        Roles permission = Roles.valueOf(createUserDto.getPermissions());
+        Roles permission = Roles.valueOf(createUserDto.getRoles());
 
         BeanUtils.copyProperties(createUserDto, userModel);
 
@@ -58,7 +58,21 @@ public class UserService {
     }
 
     @Transactional
-    public UserModel update(UUID id, UpdateUserDto updateUserDto) throws NotFoundException, BadRequestException {
+    public UserModel delete(UUID id) throws NotFoundException {
+        UserModel existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(UserModel.class, "id"));
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
+
+        UserModel userModel = new UserModel();
+        userModel.setId(id);
+        userModel.setCreatedAt(existingUser.getCreatedAt());
+        userModel.setDeletedAt(now);
+        userModel.setPassword(existingUser.getPassword());
+        return userRepository.save(userModel);
+    }
+
+    @Transactional
+    public UserModel update(UUID id, UpdateUserDto updateUserDto) throws NotFoundException {
         UserModel existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(UserModel.class, "id"));
 
@@ -75,15 +89,15 @@ public class UserService {
             userModel.setEmail(updateUserDto.getEmail());
         }
 
-        if (!updateUserDto.getPermissions().isEmpty()) {
-            userModel.setRoles(Roles.valueOf(updateUserDto.getPermissions()));
+        if (!updateUserDto.getRoles().isEmpty()) {
+            userModel.setRoles(Roles.valueOf(updateUserDto.getRoles()));
         }
 
         if (!updateUserDto.getName().isEmpty()) {
             userModel.setName(updateUserDto.getName());
         }
 
-        return userModel;
+        return userRepository.save(userModel);
     }
 }
 
