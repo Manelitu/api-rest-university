@@ -1,12 +1,11 @@
-package com.api.restuniversity.dtos;
+package com.api.restuniversity.dtos.users;
 
-import com.api.restuniversity.enums.Permission;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class CreateUserDto {
     @NotBlank
     @Email
     private String email;
@@ -17,3 +16,5 @@ public class UserDto {
     @NotBlank
     private String permissions;
 }
+
+
