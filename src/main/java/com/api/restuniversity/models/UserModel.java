@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -32,7 +33,13 @@ public class UserModel implements Serializable {
     @Column(nullable = true)
     private Boolean active = true;
 
+    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
+    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
+    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime updatedAt;
+    @Column(nullable = false, updatable = true, columnDefinition = "TIMESTAMP")
+    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime deletedAt;
 }
