@@ -20,9 +20,11 @@ public class TokenService {
     public String generateToken(UserModel user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            String rolesAsString = user.getRoles().name();
             return JWT.create()
                     .withIssuer("university-api")
                     .withSubject(user.getEmail())
+                    .withClaim("roles", rolesAsString)
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
