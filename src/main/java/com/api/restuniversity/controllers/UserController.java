@@ -56,11 +56,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.listById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserModel> deleteUser(
+            @PathVariable(value = "id") UUID id
+    ) throws NotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.delete(id));
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(
             @PathVariable(value = "id") UUID id,
             @RequestBody @Valid UpdateUserDto updateUserDto
-    ) throws NotFoundException, BadRequestException {
+    ) throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(userService.update(id, updateUserDto));
     }
 
