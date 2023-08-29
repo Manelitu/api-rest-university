@@ -11,6 +11,7 @@ import com.api.restuniversity.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,16 +30,22 @@ public class UserService {
 
     @Transactional
     public UserModel create(CreateUserDto createUserDto) throws ConflictException, BadRequestException {
+        if (this.userRepository.findByEmail(createUserDto.getEmail()) != null) {
+            throw new BadRequestException("Email already exists");
+        }
+
         var userModel = new UserModel();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(createUserDto.getPassword());
         Roles permission = Roles.valueOf(createUserDto.getRoles());
 
         BeanUtils.copyProperties(createUserDto, userModel);
 
-        userModel.setRoles(permission);
-
         ZoneId zoneid = ZoneId.of("UTC");
         LocalDateTime now = LocalDateTime.now(zoneid);
 
+        userModel.setRoles(permission);
+        userModel.setPassword(encryptedPassword);
         userModel.setCreatedAt(now);
         return userRepository.save(userModel);
     }
@@ -64,10 +71,10 @@ public class UserService {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
 
         UserModel userModel = new UserModel();
-        userModel.setId(id);
-        userModel.setCreatedAt(existingUser.getCreatedAt());
+        BeanUtils.copyProperties(existingUser, userModel);
         userModel.setDeletedAt(now);
         userModel.setPassword(existingUser.getPassword());
+        userModel.setActive(false);
         return userRepository.save(userModel);
     }
 
