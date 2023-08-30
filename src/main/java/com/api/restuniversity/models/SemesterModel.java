@@ -27,4 +27,6 @@ public class SemesterModel implements Serializable {
             joinColumns = @JoinColumn(name = "semester_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private List<SubjectModel> subjectModels;
+
+    private Boolean active = true;
 }

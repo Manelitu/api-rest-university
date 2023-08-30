@@ -25,4 +25,6 @@ public class SubjectModel implements Serializable {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseModel course;
+
+    private Boolean active = true;
 }

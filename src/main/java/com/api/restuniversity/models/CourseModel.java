@@ -20,4 +20,6 @@ public class CourseModel implements Serializable {
 
     @NotBlank
     private String name;
+
+    private Boolean active = true;
 }
