@@ -51,7 +51,8 @@ public class UserModel implements UserDetails, Serializable {
         if (this.roles == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
         else if (this.roles == Roles.STUDENT) return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
         else if (this.roles == Roles.PROFESSOR) return List.of(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_COORDINATOR"));
+        else if (this.roles == Roles.COORDINATOR) return List.of(new SimpleGrantedAuthority("ROLE_COORDINATOR"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
