@@ -2,9 +2,12 @@ package com.api.restuniversity.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +23,10 @@ public class CourseModel implements Serializable {
 
     @NotBlank
     private String name;
+
+    @NotNull
+    @OneToMany(mappedBy = "course")
+    private List<PeriodModel> periods = new ArrayList<>();
 
     private Boolean active = true;
 }

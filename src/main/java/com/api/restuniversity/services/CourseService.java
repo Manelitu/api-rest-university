@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,8 +35,8 @@ public class CourseService {
         return courseRepository.save(courseModel);
     }
 
-    public Page<CourseModel> list(Pageable pageable) {
-        return courseRepository.findAll(pageable);
+    public List<CourseModel> list(Pageable pageable) {
+        return courseRepository.findAll(pageable).getContent();
     }
 
     public Optional<CourseModel> listById(UUID id) throws NotFoundException {

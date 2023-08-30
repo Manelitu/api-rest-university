@@ -7,23 +7,19 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Table(name = "subject")
+@Table(name = "disciplines")
 @Entity
 @Data
-public class SubjectModel implements Serializable {
+public class DisciplineModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "subject_id")
-    private UUID subjectId;
+    @Column(name = "discipline_id")
+    private UUID disciplineId;
 
     @NotBlank
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private CourseModel course;
 
     private Boolean active = true;
 }

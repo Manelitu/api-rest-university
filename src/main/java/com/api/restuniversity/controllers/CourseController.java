@@ -16,12 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/courses")
-@PreAuthorize("hasRole('COORDINATOR')")
 public class CourseController {
 
     final private CourseService courseService;
@@ -38,7 +38,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CourseModel>> list(
+    public ResponseEntity<List<CourseModel>> list(
             @PageableDefault(
                     page = 0,
                     size = 10,
