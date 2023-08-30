@@ -1,7 +1,5 @@
 package com.api.restuniversity.dtos.periods;
 
-import com.api.restuniversity.models.DisciplineModel;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
