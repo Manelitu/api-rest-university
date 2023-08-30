@@ -2,6 +2,7 @@ package com.api.restuniversity.advices;
 
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
+import com.api.restuniversity.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,8 +23,9 @@ public class CustomExceptionHandler {
         exceptionHandlers.put(BadCredentialsException.class, () -> createProblemDetail(HttpStatus.UNAUTHORIZED, "Authentication failure"));
         exceptionHandlers.put(AccessDeniedException.class, () -> createProblemDetail(HttpStatus.FORBIDDEN, "Not authorized"));
         exceptionHandlers.put(SignatureException.class, () -> createProblemDetail(HttpStatus.FORBIDDEN, "JWT Signature not valid"));
-        exceptionHandlers.put(BadRequestException.class, () -> createProblemDetail(HttpStatus.BAD_REQUEST, "Bad request"));
+        exceptionHandlers.put(BadRequestException.class, () -> createProblemDetail(HttpStatus.BAD_REQUEST, "Any data is wrong"));
         exceptionHandlers.put(ConflictException.class, () -> createProblemDetail(HttpStatus.CONFLICT, "Conflict"));
+        exceptionHandlers.put(NotFoundException.class, () -> createProblemDetail(HttpStatus.NOT_FOUND, "That does not exist"));
     }
 
     @ExceptionHandler(Exception.class)
