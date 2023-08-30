@@ -68,8 +68,9 @@ public class DisciplineService {
                 .orElseThrow(() -> new NotFoundException(DisciplineModel.class, "Subject does not exist"));
 
         var subjectModel = new DisciplineModel();
-        BeanUtils.copyProperties(existingDiscipline, subjectModel);
+        BeanUtils.copyProperties(params, subjectModel);
         subjectModel.setDisciplineId(id);
+        subjectModel.setActive(existingDiscipline.getActive());
         return disciplineRepository.save(subjectModel);
     }
 }
