@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "disciplines")
@@ -18,12 +19,17 @@ public class DisciplineModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "discipline_id")
     private UUID disciplineId;
-
     @NotBlank
     private String name;
-
     @NotNull
     private Integer hours;
+
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    private CourseModel course;
+
+    @OneToMany(mappedBy = "discipline")
+    private List<PeriodModel> periods;
 
     private Boolean active = true;
 }

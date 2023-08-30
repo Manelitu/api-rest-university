@@ -5,9 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreateCourseDto {
+public class CourseDto {
     @NotBlank
     private String name;
-    @NotNull
     private Integer periods;
 }

@@ -20,13 +20,11 @@ public class CourseModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "course_id")
     private UUID courseId;
-
     @NotBlank
     private String name;
-
     @NotNull
-    @OneToMany(mappedBy = "course")
-    private List<PeriodModel> periods = new ArrayList<>();
-
+    private Integer periods;
+    @OneToMany(mappedBy = "curso")
+    private List<DisciplineModel> disciplines;
     private Boolean active = true;
 }

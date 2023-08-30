@@ -1,13 +1,12 @@
 package com.api.restuniversity.services;
 
-import com.api.restuniversity.dtos.courses.CreateCourseDto;
+import com.api.restuniversity.dtos.courses.CourseDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.CourseModel;
 import com.api.restuniversity.repositories.CourseRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ public class CourseService {
     }
 
     @Transactional
-    public CourseModel create(CreateCourseDto params) throws ConflictException {
+    public CourseModel create(CourseDto params) throws ConflictException {
         if (courseRepository.existsByName(params.getName())) {
             throw new ConflictException("Course already exists");
         }
@@ -61,7 +60,7 @@ public class CourseService {
     }
 
     @Transactional
-    public CourseModel update(UUID id, CreateCourseDto params) throws NotFoundException, BadRequestException {
+    public CourseModel update(UUID id, CourseDto params) throws NotFoundException, BadRequestException {
         CourseModel existingCourse = courseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(CourseModel.class, "id"));
         if (params.getName().isEmpty()) {

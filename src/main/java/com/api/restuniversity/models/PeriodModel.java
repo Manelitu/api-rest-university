@@ -2,6 +2,7 @@ package com.api.restuniversity.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Table(name = "semester")
+@Table(name = "periods")
 @Entity
 @Data
 public class PeriodModel implements Serializable {
@@ -20,15 +21,12 @@ public class PeriodModel implements Serializable {
     @Column(name = "period_id")
     private UUID periodId;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private CourseModel course;
+    @NotNull
+    private Integer period;
 
-    @ManyToMany
-    @JoinTable(name = "period_discipline",
-            joinColumns = @JoinColumn(name = "period_id"),
-            inverseJoinColumns = @JoinColumn(name = "discipline_id"))
-    private List<DisciplineModel> disciplines = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "discipline_id")
+    private DisciplineModel discipline;
 
     private Boolean active = true;
 }

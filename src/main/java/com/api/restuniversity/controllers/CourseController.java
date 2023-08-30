@@ -1,19 +1,17 @@
 package com.api.restuniversity.controllers;
 
-import com.api.restuniversity.dtos.courses.CreateCourseDto;
+import com.api.restuniversity.dtos.courses.CourseDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.CourseModel;
 import com.api.restuniversity.services.CourseService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +29,10 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody @Valid CreateCourseDto createCourseDto) throws ConflictException {
+    public ResponseEntity<Object> create(@RequestBody @Valid CourseDto courseDto) throws ConflictException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(courseService.create(createCourseDto));
+                .body(courseService.create(courseDto));
     }
 
     @GetMapping
@@ -66,7 +64,7 @@ public class CourseController {
     @PatchMapping("/{id}")
     public ResponseEntity<CourseModel> update(
             @PathVariable(value = "id") UUID id,
-            @RequestBody @Valid CreateCourseDto params
+            @RequestBody @Valid CourseDto params
     ) throws NotFoundException, BadRequestException {
         return ResponseEntity.status(HttpStatus.OK).body(courseService.update(id, params));
     }

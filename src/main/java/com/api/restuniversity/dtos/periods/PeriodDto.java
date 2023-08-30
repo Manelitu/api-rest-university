@@ -9,10 +9,5 @@ import java.util.UUID;
 
 @Data
 public class PeriodDto {
-    @NotBlank
-    private String period;
-
-    private List<DisciplineModel> subjectModels;
-
-    private UUID courseId;
+    private List<UUID> disciplines;
 }
