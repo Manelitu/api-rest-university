@@ -1,5 +1,6 @@
 package com.api.restuniversity.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,9 +25,10 @@ public class PeriodModel implements Serializable {
     @NotNull
     private Integer period;
 
-    @ManyToOne
-    @JoinColumn(name = "discipline_id")
-    private DisciplineModel discipline;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discipline_id", nullable = false)
+    private DisciplineModel disciplines;
 
     private Boolean active = true;
 }

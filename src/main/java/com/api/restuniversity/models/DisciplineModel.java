@@ -1,5 +1,8 @@
 package com.api.restuniversity.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,11 +27,14 @@ public class DisciplineModel implements Serializable {
     @NotNull
     private Integer hours;
 
-    @ManyToOne
-    @JoinColumn(name = "curso_id")
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
     private CourseModel course;
 
-    @OneToMany(mappedBy = "discipline")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "disciplines", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("courses")
     private List<PeriodModel> periods;
 
     private Boolean active = true;
