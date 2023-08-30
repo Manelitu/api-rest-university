@@ -33,9 +33,7 @@ public class DisciplineController {
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody @Valid DisciplineDto params) throws ConflictException, BadRequestException {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(disciplineService.create(params));
+        return ResponseEntity.ok(disciplineService.create(params));
     }
 
     @GetMapping
@@ -52,14 +50,14 @@ public class DisciplineController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<DisciplineModel>> listById(@PathVariable("id") UUID id) throws NotFoundException, BadRequestException {
-        return ResponseEntity.status(HttpStatus.OK).body(disciplineService.listById(id));
+        return ResponseEntity.ok(disciplineService.listById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<DisciplineModel> delete(
             @PathVariable(value = "id") UUID id
     ) throws NotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(disciplineService.delete(id));
+        return ResponseEntity.ok(disciplineService.delete(id));
     }
 
     @PatchMapping("/{id}")
@@ -67,6 +65,6 @@ public class DisciplineController {
             @PathVariable(value = "id") UUID id,
             @RequestBody @Valid DisciplineDto params
     ) throws NotFoundException, BadRequestException {
-        return ResponseEntity.status(HttpStatus.OK).body(disciplineService.update(id, params));
+        return ResponseEntity.ok(disciplineService.update(id, params));
     }
 }
