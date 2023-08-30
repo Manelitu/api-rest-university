@@ -1,12 +1,10 @@
 package com.api.restuniversity.controllers;
 
 import com.api.restuniversity.dtos.courses.CreateCourseDto;
-import com.api.restuniversity.dtos.users.UpdateUserDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.CourseModel;
-import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.services.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
