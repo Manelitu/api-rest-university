@@ -48,9 +48,9 @@ public class DisciplineController {
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<DisciplineModel>> listById(@PathVariable("id") UUID id) throws NotFoundException, BadRequestException {
-        return ResponseEntity.ok(disciplineService.listById(id));
+    @GetMapping("/{name}")
+    public ResponseEntity<DisciplineModel> listByName(@PathVariable("name") String name) throws NotFoundException, BadRequestException {
+        return ResponseEntity.ok(disciplineService.listById(name));
     }
 
     @DeleteMapping("/{id}")
