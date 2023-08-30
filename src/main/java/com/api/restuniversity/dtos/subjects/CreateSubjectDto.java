@@ -7,9 +7,6 @@ import java.util.UUID;
 
 @Data
 public class CreateSubjectDto {
-    @NotBlank
     private String name;
-
-    @NotBlank
     private UUID courseId;
 }
