@@ -1,5 +1,6 @@
 package com.api.restuniversity.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,8 @@ public class CourseModel implements Serializable {
     private String name;
     @NotNull
     private Integer periods;
-    @OneToMany(mappedBy = "curso")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<DisciplineModel> disciplines;
     private Boolean active = true;
 }
