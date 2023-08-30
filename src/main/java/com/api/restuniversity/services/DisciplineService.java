@@ -6,7 +6,9 @@ import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.CourseModel;
 import com.api.restuniversity.models.DisciplineModel;
+import com.api.restuniversity.repositories.CourseRepository;
 import com.api.restuniversity.repositories.DisciplineRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,14 @@ import java.util.UUID;
 @Service
 public class DisciplineService {
     final private DisciplineRepository disciplineRepository;
+    final private CourseRepository courseRepository;
 
-    public DisciplineService( DisciplineRepository disciplineRepository) {
+    public DisciplineService(
+            DisciplineRepository disciplineRepository,
+            CourseRepository courseRepository
+    ) {
         this.disciplineRepository = disciplineRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Transactional
@@ -30,8 +37,13 @@ public class DisciplineService {
             throw new ConflictException("Discipline already exists");
         }
 
+        CourseModel existingCourse = courseRepository.findById(params.getCourseId())
+                .orElseThrow();
+
         var subjectModel = new DisciplineModel();
         BeanUtils.copyProperties(params, subjectModel);
+
+        subjectModel.setCourse(existingCourse);
 
         return disciplineRepository.save(subjectModel);
     }
@@ -40,26 +52,22 @@ public class DisciplineService {
         return disciplineRepository.findAll(pageable).getContent();
     }
 
-    public Optional<DisciplineModel> listById(UUID id) throws NotFoundException {
-        Optional<DisciplineModel> existSubject = disciplineRepository.findById(id);
-
-        if (existSubject.isEmpty()) {
-            throw new NotFoundException(DisciplineModel.class, "id");
-        }
-
-        return existSubject;
+    @Transactional
+    public DisciplineModel listById(String name) throws NotFoundException {
+        return disciplineRepository.findByName(name).orElseThrow();
     }
 
     @Transactional
     public DisciplineModel delete(UUID id) throws NotFoundException {
-        DisciplineModel existingSubject = disciplineRepository.findById(id)
+        DisciplineModel existingDiscipline = disciplineRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(DisciplineModel.class, "id"));
 
-        var subjectModel = new DisciplineModel();
-        BeanUtils.copyProperties(existingSubject, subjectModel);
-        subjectModel.setDisciplineId(id);
-        subjectModel.setActive(false);
-        return disciplineRepository.save(subjectModel);
+        var discipline = new DisciplineModel();
+        BeanUtils.copyProperties(existingDiscipline, discipline);
+        discipline.setDisciplineId(id);
+        discipline.setCourse(existingDiscipline.getCourse());
+        discipline.setActive(false);
+        return disciplineRepository.save(discipline);
     }
 
     @Transactional
@@ -67,10 +75,12 @@ public class DisciplineService {
         DisciplineModel existingDiscipline = disciplineRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(DisciplineModel.class, "Subject does not exist"));
 
-        var subjectModel = new DisciplineModel();
-        BeanUtils.copyProperties(params, subjectModel);
-        subjectModel.setDisciplineId(id);
-        subjectModel.setActive(existingDiscipline.getActive());
-        return disciplineRepository.save(subjectModel);
+        var discipline = new DisciplineModel();
+        discipline.setDisciplineId(id);
+        discipline.setCourse(existingDiscipline.getCourse());
+        discipline.setPeriods(existingDiscipline.getPeriods());
+        discipline.setActive(existingDiscipline.getActive());
+        BeanUtils.copyProperties(params, discipline);
+        return disciplineRepository.save(discipline);
     }
 }
