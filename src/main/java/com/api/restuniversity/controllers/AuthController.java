@@ -5,7 +5,6 @@ import com.api.restuniversity.dtos.auth.LoginResponseDto;
 import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.services.TokenService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +32,6 @@ public class AuthController {
         String token = tokenService.generateToken((UserModel) auth.getPrincipal());
         var response = new LoginResponseDto(token);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 }
