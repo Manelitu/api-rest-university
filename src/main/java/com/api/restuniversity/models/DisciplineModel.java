@@ -2,6 +2,7 @@ package com.api.restuniversity.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +21,9 @@ public class DisciplineModel implements Serializable {
 
     @NotBlank
     private String name;
+
+    @NotNull
+    private Integer hours;
 
     private Boolean active = true;
 }
