@@ -33,14 +33,14 @@ public class SubjectService {
 
     @Transactional
     public SubjectModel create(CreateSubjectDto params) throws ConflictException, BadRequestException {
-        if (subjectRepository.existsByName(params.getName())) {
-            throw new ConflictException("Subject already exists");
-        }
-
         Optional<CourseModel> existingCourse = courseRepository.findById(params.getCourseId());
 
         if (existingCourse.isEmpty()) {
             throw new BadRequestException("Course does not exist");
+        }
+
+        if (subjectRepository.existsByName(params.getName())) {
+            throw new ConflictException("Subject already exists");
         }
 
         var subjectModel = new SubjectModel();
@@ -79,19 +79,23 @@ public class SubjectService {
     @Transactional
     public SubjectModel update(UUID id, CreateSubjectDto params) throws NotFoundException, BadRequestException {
         SubjectModel existingSubject = subjectRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(SubjectModel.class, "id"));
-        if (params.getName().isEmpty()) {
-            throw new BadRequestException("Name must exists");
-        }
-        var existingCourse = courseRepository.findById(id);
+                .orElseThrow(() -> new NotFoundException(SubjectModel.class, "Subject does not exist"));
+
+        var existingCourse = courseRepository.findById(params.getCourseId());
 
         if (existingCourse.isEmpty()) {
-            throw new BadRequestException("Course does not exist");
+            throw new NotFoundException(CourseModel.class, "Course does not exist");
         }
 
         var subjectModel = new SubjectModel();
         BeanUtils.copyProperties(existingSubject, subjectModel);
-        subjectModel.setName(params.getName());
+
+        if (params.getName().isEmpty()) {
+            subjectModel.setName(existingSubject.getName());
+        } else {
+            subjectModel.setName(params.getName());
+        }
+
         subjectModel.setSubjectId(existingSubject.getSubjectId());
         existingCourse.ifPresent(subjectModel::setCourse);
         return subjectRepository.save(subjectModel);
