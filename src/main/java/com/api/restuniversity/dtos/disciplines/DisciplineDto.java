@@ -7,4 +7,5 @@ import java.util.UUID;
 @Data
 public class DisciplineDto {
     private String name;
+    private Integer hours;
 }
