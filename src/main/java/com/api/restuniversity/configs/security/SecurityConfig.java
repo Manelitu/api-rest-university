@@ -40,8 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/courses", "/api/v1/discipline", "/api/v1/period").hasAuthority("ROLE_COORDINATOR")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors()
-                .and()
+                .cors(AbstractHttpConfigurer::disable)
                 .build();
     }
 
