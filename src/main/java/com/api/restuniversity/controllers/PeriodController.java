@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/period")
+@CrossOrigin(origins = "*")
 public class PeriodController {
 
     final private PeriodService periodService;

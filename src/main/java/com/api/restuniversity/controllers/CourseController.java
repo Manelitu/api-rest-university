@@ -20,6 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/courses")
+@CrossOrigin(origins = "*")
 public class CourseController {
 
     final private CourseService courseService;

@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/discipline")
-@PreAuthorize("hasRole('COORDINATOR')")
+@CrossOrigin(origins = "*")
 public class DisciplineController {
 
     final private DisciplineService disciplineService;
