@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<Object> login(@RequestBody @Valid AuthDto authDto) throws BadRequestException {
         Boolean existEmail = userRepository.existsByEmail(authDto.getLogin());
         if (!existEmail) {
-            throw new BadRequestException("login", "Email does not exist");
+            throw new BadRequestException("Email does not exist");
         }
         var usernamePassword = new UsernamePasswordAuthenticationToken(authDto.getLogin(), authDto.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
