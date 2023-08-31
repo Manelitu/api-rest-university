@@ -68,6 +68,7 @@ public class DisciplineService {
         BeanUtils.copyProperties(existingDiscipline, discipline);
         discipline.setDisciplineId(id);
         discipline.setPeriods(existingDiscipline.getPeriods());
+        discipline.setDescription(existingDiscipline.getDescription());
         discipline.setActive(false);
         return disciplineRepository.save(discipline);
     }
@@ -80,7 +81,7 @@ public class DisciplineService {
         var discipline = new DisciplineModel();
         discipline.setDisciplineId(id);
         discipline.setPeriods(existingDiscipline.getPeriods());
-        discipline.setPeriods(existingDiscipline.getPeriods());
+        discipline.setDescription(existingDiscipline.getDescription());
         discipline.setActive(existingDiscipline.getActive());
         BeanUtils.copyProperties(params, discipline);
         return disciplineRepository.save(discipline);

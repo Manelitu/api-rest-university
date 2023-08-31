@@ -28,6 +28,7 @@ public class DisciplineModel implements Serializable {
     private String name;
     @NotNull
     private Integer hours;
+    private String description;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)

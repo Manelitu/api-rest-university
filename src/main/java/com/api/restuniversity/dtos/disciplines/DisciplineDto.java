@@ -8,5 +8,6 @@ import java.util.UUID;
 public class DisciplineDto {
     private String name;
     private Integer hours;
+    private String description;
     private UUID periodId;
 }
