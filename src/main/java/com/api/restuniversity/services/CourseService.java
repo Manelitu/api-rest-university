@@ -25,10 +25,6 @@ public class CourseService {
 
     @Transactional
     public CourseModel create(CourseDto params) throws ConflictException {
-        if (courseRepository.existsByName(params.getName())) {
-            throw new ConflictException("Course already exists");
-        }
-
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(params, courseModel);
         return courseRepository.save(courseModel);

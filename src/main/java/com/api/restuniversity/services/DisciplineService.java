@@ -6,8 +6,10 @@ import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.CourseModel;
 import com.api.restuniversity.models.DisciplineModel;
+import com.api.restuniversity.models.PeriodModel;
 import com.api.restuniversity.repositories.CourseRepository;
 import com.api.restuniversity.repositories.DisciplineRepository;
+import com.api.restuniversity.repositories.PeriodRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +23,14 @@ import java.util.UUID;
 @Service
 public class DisciplineService {
     final private DisciplineRepository disciplineRepository;
-    final private CourseRepository courseRepository;
+    final private PeriodRepository periodRepository;
 
     public DisciplineService(
             DisciplineRepository disciplineRepository,
-            CourseRepository courseRepository
+            PeriodRepository periodRepository
     ) {
         this.disciplineRepository = disciplineRepository;
-        this.courseRepository = courseRepository;
+        this.periodRepository = periodRepository;
     }
 
     @Transactional
@@ -37,13 +39,13 @@ public class DisciplineService {
             throw new ConflictException("Discipline already exists");
         }
 
-        CourseModel existingCourse = courseRepository.findById(params.getCourseId())
+        PeriodModel periodExists = periodRepository.findById(params.getPeriodId())
                 .orElseThrow();
 
         var subjectModel = new DisciplineModel();
         BeanUtils.copyProperties(params, subjectModel);
 
-        subjectModel.setCourse(existingCourse);
+        subjectModel.setPeriods(periodExists);
 
         return disciplineRepository.save(subjectModel);
     }
@@ -53,8 +55,8 @@ public class DisciplineService {
     }
 
     @Transactional
-    public DisciplineModel listById(String name) throws NotFoundException {
-        return disciplineRepository.findByName(name).orElseThrow();
+    public DisciplineModel listById(UUID id) throws NotFoundException {
+        return disciplineRepository.findById(id).orElseThrow();
     }
 
     @Transactional
@@ -65,7 +67,7 @@ public class DisciplineService {
         var discipline = new DisciplineModel();
         BeanUtils.copyProperties(existingDiscipline, discipline);
         discipline.setDisciplineId(id);
-        discipline.setCourse(existingDiscipline.getCourse());
+        discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setActive(false);
         return disciplineRepository.save(discipline);
     }
@@ -77,7 +79,7 @@ public class DisciplineService {
 
         var discipline = new DisciplineModel();
         discipline.setDisciplineId(id);
-        discipline.setCourse(existingDiscipline.getCourse());
+        discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setActive(existingDiscipline.getActive());
         BeanUtils.copyProperties(params, discipline);

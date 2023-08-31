@@ -23,25 +23,25 @@ import java.util.stream.Collectors;
 @Service
 public class PeriodService {
     final private PeriodRepository periodRepository;
-    final private DisciplineRepository disciplineRepository;
+    final private CourseRepository courseRepository;
 
     public PeriodService(
             PeriodRepository periodRepository,
-            DisciplineRepository disciplineRepository
+            CourseRepository courseRepository
     ) {
         this.periodRepository = periodRepository;
-        this.disciplineRepository = disciplineRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Transactional
     public PeriodModel create(PeriodDto params) throws BadRequestException {
-        DisciplineModel disciplineModel = disciplineRepository.findById(params.getDisciplineId())
+        CourseModel course =  courseRepository.findById(params.getCourseId())
                 .orElseThrow(() -> new BadRequestException(DisciplineModel.class, "ID doesnt exists"));
 
 
         PeriodModel periodModel = new PeriodModel();
         BeanUtils.copyProperties(params, periodModel);
-        periodModel.setDisciplines(disciplineModel);
+        periodModel.setCourse(course);
 
         return periodRepository.save(periodModel);
     }
