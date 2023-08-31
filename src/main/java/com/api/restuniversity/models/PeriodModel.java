@@ -1,10 +1,15 @@
 package com.api.restuniversity.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +18,9 @@ import java.util.UUID;
 
 @Table(name = "periods")
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class PeriodModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -26,9 +33,14 @@ public class PeriodModel implements Serializable {
     private Integer period;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "discipline_id", nullable = false)
-    private DisciplineModel disciplines;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id", nullable = false)
+    private CourseModel course;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "periods", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("courses")
+    private List<DisciplineModel> disciplines;
 
     private Boolean active = true;
 }

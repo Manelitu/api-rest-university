@@ -5,15 +5,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "courses")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class CourseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -23,10 +27,9 @@ public class CourseModel implements Serializable {
     private UUID courseId;
     @NotBlank
     private String name;
-    @NotNull
-    private Integer periods;
+
     @JsonManagedReference
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<DisciplineModel> disciplines;
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PeriodModel> periods;
     private Boolean active = true;
 }
