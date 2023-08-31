@@ -49,9 +49,9 @@ public class CourseController {
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<CourseModel>> listById(@PathVariable("id") UUID id) throws NotFoundException, BadRequestException {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.listById(id));
+    @GetMapping("/{name}")
+    public ResponseEntity<Optional<CourseModel>> listOne(@PathVariable("name") String name) throws NotFoundException, BadRequestException {
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.listById(name));
     }
 
     @DeleteMapping("/{id}")

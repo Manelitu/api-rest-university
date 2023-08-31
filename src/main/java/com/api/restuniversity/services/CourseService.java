@@ -34,8 +34,8 @@ public class CourseService {
         return courseRepository.findAll(pageable).getContent();
     }
 
-    public Optional<CourseModel> listById(UUID id) throws NotFoundException {
-        Optional<CourseModel> existCourse = courseRepository.findById(id);
+    public Optional<CourseModel> listById(String name) throws NotFoundException {
+        Optional<CourseModel> existCourse = courseRepository.findByName(name);
 
         if (existCourse.isEmpty()) {
             throw new NotFoundException(CourseModel.class, "id");
