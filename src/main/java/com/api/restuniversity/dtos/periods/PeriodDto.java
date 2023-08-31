@@ -7,5 +7,5 @@ import java.util.UUID;
 @Data
 public class PeriodDto {
     private Integer period;
-    private UUID disciplineId;
+    private UUID courseId;
 }

@@ -8,5 +8,4 @@ import lombok.Data;
 public class CourseDto {
     @NotBlank
     private String name;
-    private Integer periods;
 }
