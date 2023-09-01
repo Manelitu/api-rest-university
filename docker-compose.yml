@@ -3,6 +3,7 @@ services:
   database-postgres:
     image: postgres:12.15-bullseye
     container_name: postgres_db
+    restart: always
     environment:
       - "POSTGRES_PASSWORD=postgres"
       - "POSTGRES_USER=postgres"
@@ -23,6 +24,15 @@ services:
       - "16543:80"
     depends_on:
       - database-postgres
+    networks:
+      - database-network
+
+  server:
+    container_name: university-app
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     networks:
       - database-network
 
