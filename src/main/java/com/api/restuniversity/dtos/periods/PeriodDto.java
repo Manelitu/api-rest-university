@@ -6,6 +6,6 @@ import java.util.UUID;
 
 @Data
 public class PeriodDto {
-    private Integer period;
+    private String period;
     private UUID courseId;
 }

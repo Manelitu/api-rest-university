@@ -42,12 +42,13 @@ public class DisciplineService {
         PeriodModel periodExists = periodRepository.findById(params.getPeriodId())
                 .orElseThrow();
 
-        var subjectModel = new DisciplineModel();
-        BeanUtils.copyProperties(params, subjectModel);
+        var disciplineModel = new DisciplineModel();
+        BeanUtils.copyProperties(params, disciplineModel);
 
-        subjectModel.setPeriods(periodExists);
+        disciplineModel.setPeriods(periodExists);
+        disciplineModel.setPeriod_uuid(params.getPeriodId());
 
-        return disciplineRepository.save(subjectModel);
+        return disciplineRepository.save(disciplineModel);
     }
 
     public List<DisciplineModel> list(Pageable pageable) {
@@ -69,6 +70,7 @@ public class DisciplineService {
         discipline.setDisciplineId(id);
         discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setDescription(existingDiscipline.getDescription());
+        discipline.setPeriodOnUUID();
         discipline.setActive(false);
         return disciplineRepository.save(discipline);
     }
@@ -83,6 +85,7 @@ public class DisciplineService {
         discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setDescription(existingDiscipline.getDescription());
         discipline.setActive(existingDiscipline.getActive());
+        discipline.setPeriodOnUUID();
         BeanUtils.copyProperties(params, discipline);
         return disciplineRepository.save(discipline);
     }

@@ -42,6 +42,7 @@ public class PeriodService {
         PeriodModel periodModel = new PeriodModel();
         BeanUtils.copyProperties(params, periodModel);
         periodModel.setCourse(course);
+        periodModel.setCourseOnUUID();
 
         return periodRepository.save(periodModel);
     }
@@ -72,6 +73,7 @@ public class PeriodService {
         periodModel.setDisciplines(existingPeriod.getDisciplines());
         periodModel.setPeriodId(id);
         periodModel.setActive(false);
+        periodModel.setCourseOnUUID();
         return periodRepository.save(periodModel);
     }
 
@@ -86,6 +88,7 @@ public class PeriodService {
         periodModel.setDisciplines(existingPeriod.getDisciplines());
         periodModel.setPeriodId(id);
         periodModel.setActive(existingPeriod.getActive());
+        periodModel.setCourseOnUUID();
 
         BeanUtils.copyProperties(params, periodModel);
 

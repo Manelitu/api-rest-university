@@ -30,8 +30,8 @@ public class PeriodModel implements Serializable {
     private UUID periodId;
 
     @NotNull
-    private Integer period;
-
+    private String period;
+    private UUID course_uuid;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", nullable = false)
@@ -43,4 +43,8 @@ public class PeriodModel implements Serializable {
     private List<DisciplineModel> disciplines;
 
     private Boolean active = true;
+
+    public void setCourseOnUUID() {
+        this.course_uuid = course.getCourseId();
+    }
 }
