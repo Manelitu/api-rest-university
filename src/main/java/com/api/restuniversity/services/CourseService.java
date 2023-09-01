@@ -52,6 +52,7 @@ public class CourseService {
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(existingCourse, courseModel);
         courseModel.setActive(false);
+        courseModel.setDescription(existingCourse.getDescription());
         return courseRepository.save(courseModel);
     }
 
@@ -65,6 +66,7 @@ public class CourseService {
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(existingCourse, courseModel);
         courseModel.setName(params.getName());
+        courseModel.setDescription(params.getDescription());
 
         return courseRepository.save(courseModel);
     }
