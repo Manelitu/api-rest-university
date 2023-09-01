@@ -28,6 +28,8 @@ public class CourseModel implements Serializable {
     @NotBlank
     private String name;
 
+    private String description;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PeriodModel> periods;
