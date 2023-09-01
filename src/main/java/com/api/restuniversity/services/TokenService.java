@@ -25,6 +25,7 @@ public class TokenService {
                     .withIssuer("university-api")
                     .withSubject(user.getEmail())
                     .withClaim("roles", rolesAsString)
+                    .withClaim("name", user.getName())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {

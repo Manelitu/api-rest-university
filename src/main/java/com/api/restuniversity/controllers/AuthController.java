@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody @Valid AuthDto authDto) throws BadRequestException {
+    public ResponseEntity<Object> login(@RequestBody AuthDto authDto) throws BadRequestException {
         Boolean existEmail = userRepository.existsByEmail(authDto.getLogin());
         if (!existEmail) {
             throw new BadRequestException("Email does not exist");
