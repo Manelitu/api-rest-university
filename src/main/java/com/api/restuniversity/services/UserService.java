@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public Page<UserModel> list(Pageable pageable) {
-        return userRepository.findAll(pageable);
+        return userRepository.findByActiveTrue(pageable);
     }
 
     public Optional<UserModel> listById(UUID id) throws NotFoundException {

@@ -31,7 +31,7 @@ public class CourseService {
     }
 
     public List<CourseModel> list(Pageable pageable) {
-        return courseRepository.findAll(pageable).getContent();
+        return courseRepository.findByActiveTrue(pageable).getContent();
     }
 
     public Optional<CourseModel> listById(String name) throws NotFoundException {

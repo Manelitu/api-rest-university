@@ -51,7 +51,7 @@ public class DisciplineService {
     }
 
     public List<DisciplineModel> list(Pageable pageable) {
-        return disciplineRepository.findAll(pageable).getContent();
+        return disciplineRepository.findByActiveTrue(pageable).getContent();
     }
 
     @Transactional

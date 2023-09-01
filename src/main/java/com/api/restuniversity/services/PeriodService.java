@@ -48,7 +48,7 @@ public class PeriodService {
 
 
     public List<PeriodModel> list(Pageable pageable) {
-        return periodRepository.findAll(pageable).getContent();
+        return periodRepository.findByActiveTrue(pageable).getContent();
     }
 
     public Optional<PeriodModel> listById(UUID id) throws NotFoundException {
