@@ -45,8 +45,8 @@ public class CourseService {
     }
 
     @Transactional
-    public CourseModel delete(UUID id) throws NotFoundException {
-        CourseModel existingCourse = courseRepository.findById(id)
+    public CourseModel delete(String name) throws NotFoundException {
+        CourseModel existingCourse = courseRepository.findByName(name)
                 .orElseThrow(() -> new NotFoundException(CourseModel.class, "id"));
 
         var courseModel = new CourseModel();
@@ -56,8 +56,8 @@ public class CourseService {
     }
 
     @Transactional
-    public CourseModel update(UUID id, CourseDto params) throws NotFoundException, BadRequestException {
-        CourseModel existingCourse = courseRepository.findById(id)
+    public CourseModel update(String name, CourseDto params) throws NotFoundException, BadRequestException {
+        CourseModel existingCourse = courseRepository.findByName(name)
                 .orElseThrow(() -> new NotFoundException(CourseModel.class, "id"));
         if (params.getName().isEmpty()) {
             throw new BadRequestException("Name must exists");

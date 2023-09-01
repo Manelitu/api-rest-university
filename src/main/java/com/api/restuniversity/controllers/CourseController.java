@@ -55,18 +55,18 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body(courseService.listById(name));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     public ResponseEntity<CourseModel> delete(
-            @PathVariable(value = "id") UUID id
+            @PathVariable(value = "name") String name
     ) throws NotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.delete(id));
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.delete(name));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{name}")
     public ResponseEntity<CourseModel> update(
-            @PathVariable(value = "id") UUID id,
+            @PathVariable(value = "name") String name,
             @RequestBody @Valid CourseDto params
     ) throws NotFoundException, BadRequestException {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.update(id, params));
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.update(name, params));
     }
 }
