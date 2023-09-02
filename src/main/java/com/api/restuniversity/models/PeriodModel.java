@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +28,6 @@ public class PeriodModel implements Serializable {
 
     @NotNull
     private String period;
-    private UUID course_uuid;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", nullable = false)
@@ -44,7 +40,4 @@ public class PeriodModel implements Serializable {
 
     private Boolean active = true;
 
-    public void setCourseOnUUID() {
-        this.course_uuid = course.getCourseId();
-    }
 }
