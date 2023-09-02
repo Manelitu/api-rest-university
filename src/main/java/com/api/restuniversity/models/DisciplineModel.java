@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +25,7 @@ public class DisciplineModel implements Serializable {
     private UUID disciplineId;
     @NotBlank
     private String name;
-    private UUID period_uuid;
+
     @NotNull
     private Integer hours;
     private String description;
@@ -38,7 +37,4 @@ public class DisciplineModel implements Serializable {
 
     private Boolean active = true;
 
-    public void setPeriodOnUUID() {
-        this.period_uuid = periods.getPeriodId();
-    }
 }
