@@ -51,7 +51,7 @@ Segue abaixo as APIs disponíveis no projeto:
      - Schema do body:
     ```
     {
-    	"email": "user@admin.com",
+    	"login": "user@admin.com",
     	"password": "admin",
     }
   A validação é feita pelo Spring Security e JWT onde será enviado um token para a camada de View e será utilizada para a validação de permissões no FRONT.
@@ -61,8 +61,9 @@ Segue abaixo as APIs disponíveis no projeto:
  - api/v1/users (GET) 
  - api/v1/users/{id} (GET)
  - api/v1/users/{id} (DELETE)
+ - api/v1/users/no-auth (POST) - não necessita de Autenticação (Caso de primeiro usuário para testes)
  - api/v1/users (POST)
-     - Schema do body:
+     - Schema do body para ambos os (POST):
     ```
     {
     	"name": "Emanuel Victor de Lima",
