@@ -39,6 +39,13 @@ public class UserController {
                 .body(userService.create(createUserDto));
     }
 
+    @PostMapping("/no-auth")
+    public ResponseEntity<UserModel> createUserNoAuth(@RequestBody @Valid CreateUserDto createUserDto) throws BadRequestException, ConflictException {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userService.create(createUserDto));
+    }
+
     @GetMapping
     public ResponseEntity<List<UserModel>> listUsers(
             @PageableDefault(
