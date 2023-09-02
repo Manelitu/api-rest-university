@@ -48,6 +48,35 @@ Com as credenciais:
  senha - admin
 ```
 
+# Decisões do projeto
+
+O uso de Spring Boot, Spring MVC e Spring Security com JWT em um projeto oferece diversas vantagens e recursos que contribuem para o desenvolvimento de aplicativos web seguros e eficientes. Aqui estão algumas razões pelas quais essas tecnologias são frequentemente escolhidas em conjunto:
+
+1. **Spring Boot**: O Spring Boot é uma estrutura que simplifica a configuração e o desenvolvimento de aplicativos Spring. Ele fornece um ambiente de execução pré-configurado, permitindo que os desenvolvedores se concentrem no código do aplicativo em vez de configurações complexas. O Spring Boot é conhecido por sua facilidade de uso e produtividade, o que acelera o desenvolvimento de aplicativos.
+
+2. **Spring MVC**: O Spring MVC é um módulo do Spring Framework que facilita o desenvolvimento de aplicativos web baseados em padrões MVC (Model-View-Controller). Ele oferece uma estrutura robusta para criar APIs RESTful e aplicativos da web, permitindo um controle eficiente das solicitações HTTP, roteamento e renderização de visualizações.
+
+3. **Spring Security**: A segurança é uma preocupação fundamental em qualquer aplicativo web. O Spring Security é uma estrutura que oferece recursos abrangentes para autenticação e autorização. Ele facilita a implementação de autenticação de usuários, proteção contra ameaças comuns, como CSRF (Cross-Site Request Forgery) e XSS (Cross-Site Scripting), e controle de acesso baseado em papéis.
+
+4. **JSON Web Tokens (JWT)**: JWT é um padrão aberto para representar informações entre duas partes de forma segura e compacta. Ele é frequentemente usado como um mecanismo de autenticação e autorização em aplicativos web e APIs RESTful. O uso de JWT com o Spring Security permite a autenticação baseada em tokens, o que é altamente escalável e adequado para aplicativos distribuídos.
+
+Combinar Spring Boot, Spring MVC e Spring Security com JWT oferece uma base sólida para o desenvolvimento de aplicativos web modernos e seguros. Isso permite aos desenvolvedores criar rapidamente APIs RESTful seguras e aplicativos da web, além de controlar o acesso de usuários de forma flexível e escalável, tornando essas tecnologias uma escolha popular para uma ampla gama de projetos.
+
+E, além do mais, outro motivo importante foi o estudo das tecnologias usadas tendo em vista o desafio de aprender/evolui-las em tempo hábil
+
+# Planos para o projeto
+
+- [x] Utilizar Springboot
+- [x] Criar modelo e relacionamento do banco
+- [x] Utilizar o postgres
+- [x] Utilizar Hibernate JPA
+- [x] Utilizar Spring Security com JWT
+- [ ] Documentar com Swagger
+- [x] Utilizar controle de Rotas por Roles
+- [ ] Criar testes unitários e de integração
+- [x] Utilizar Docker para rodar a aplicação e o banco de dados
+- [ ] Fazer deploy da aplicação
+
 # Entidades (schemas)
 
 ## Users
@@ -279,32 +308,3 @@ Segue abaixo as APIs disponíveis no projeto, e as permissões (ROLES):
     }
 ### Response
     ENTIDADE PERIODOS
-
-## Decisões do projeto
-
-O uso de Spring Boot, Spring MVC e Spring Security com JWT em um projeto oferece diversas vantagens e recursos que contribuem para o desenvolvimento de aplicativos web seguros e eficientes. Aqui estão algumas razões pelas quais essas tecnologias são frequentemente escolhidas em conjunto:
-
-1. **Spring Boot**: O Spring Boot é uma estrutura que simplifica a configuração e o desenvolvimento de aplicativos Spring. Ele fornece um ambiente de execução pré-configurado, permitindo que os desenvolvedores se concentrem no código do aplicativo em vez de configurações complexas. O Spring Boot é conhecido por sua facilidade de uso e produtividade, o que acelera o desenvolvimento de aplicativos.
-
-2. **Spring MVC**: O Spring MVC é um módulo do Spring Framework que facilita o desenvolvimento de aplicativos web baseados em padrões MVC (Model-View-Controller). Ele oferece uma estrutura robusta para criar APIs RESTful e aplicativos da web, permitindo um controle eficiente das solicitações HTTP, roteamento e renderização de visualizações.
-
-3. **Spring Security**: A segurança é uma preocupação fundamental em qualquer aplicativo web. O Spring Security é uma estrutura que oferece recursos abrangentes para autenticação e autorização. Ele facilita a implementação de autenticação de usuários, proteção contra ameaças comuns, como CSRF (Cross-Site Request Forgery) e XSS (Cross-Site Scripting), e controle de acesso baseado em papéis.
-
-4. **JSON Web Tokens (JWT)**: JWT é um padrão aberto para representar informações entre duas partes de forma segura e compacta. Ele é frequentemente usado como um mecanismo de autenticação e autorização em aplicativos web e APIs RESTful. O uso de JWT com o Spring Security permite a autenticação baseada em tokens, o que é altamente escalável e adequado para aplicativos distribuídos.
-
-Combinar Spring Boot, Spring MVC e Spring Security com JWT oferece uma base sólida para o desenvolvimento de aplicativos web modernos e seguros. Isso permite aos desenvolvedores criar rapidamente APIs RESTful seguras e aplicativos da web, além de controlar o acesso de usuários de forma flexível e escalável, tornando essas tecnologias uma escolha popular para uma ampla gama de projetos.
-
-E, além do mais, outro motivo importante foi o estudo das tecnologias usadas tendo em vista o desafio de aprender/evolui-las em tempo hábil
-
-## Planos para o projeto
-
-- [x] Utilizar Springboot
-- [x] Criar modelo e relacionamento do banco
-- [x] Utilizar o postgres
-- [x] Utilizar Hibernate JPA
-- [x] Utilizar Spring Security com JWT
-- [ ] Documentar com Swagger
-- [x] Utilizar controle de Rotas por Roles
-- [ ] Criar testes unitários e de integração
-- [x] Utilizar Docker para rodar a aplicação e o banco de dados
-- [ ] Fazer deploy da aplicação
