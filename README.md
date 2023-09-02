@@ -172,4 +172,16 @@ Segue abaixo as APIs disponíveis no projeto:
 Combinar Spring Boot, Spring MVC e Spring Security com JWT oferece uma base sólida para o desenvolvimento de aplicativos web modernos e seguros. Isso permite aos desenvolvedores criar rapidamente APIs RESTful seguras e aplicativos da web, além de controlar o acesso de usuários de forma flexível e escalável, tornando essas tecnologias uma escolha popular para uma ampla gama de projetos.
 
 E, além do mais, outro motivo importante foi o estudo das tecnologias usadas tendo em vista o desafio de aprender/evolui-las em tempo hábil
-    
+
+## Planos para o projeto
+
+- [x] Utilizar Springboot
+- [x] Criar modelo e relacionamento do banco
+- [x] Utilizar o postgres
+- [x] Utilizar Hibernate JPA
+- [x] Utilizar Spring Security com JWT
+- [ ] Documentar com Swagger
+- [x] Utilizar controle de Rotas por Roles
+- [ ] Criar testes unitários e de integração
+- [x] Utilizar Docker para rodar a aplicação e o banco de dados
+- [ ] Fazer deploy da aplicação
