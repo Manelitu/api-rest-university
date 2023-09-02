@@ -8,7 +8,6 @@ import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UserModel>> listUsers(
+    public ResponseEntity<List<UserModel>> listUsers(
             @PageableDefault(
                     page = 0,
                     size = 10,

@@ -9,7 +9,6 @@ import com.api.restuniversity.exceptions.NotFoundException;
 import com.api.restuniversity.models.UserModel;
 import com.api.restuniversity.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,8 +50,8 @@ public class UserService {
         return userRepository.save(userModel);
     }
 
-    public Page<UserModel> list(Pageable pageable) {
-        return userRepository.findByActiveTrue(pageable);
+    public List<UserModel> list(Pageable pageable) {
+        return userRepository.findByActiveTrue(pageable).getContent();
     }
 
     public Optional<UserModel> listById(UUID id) throws NotFoundException {
@@ -91,13 +91,10 @@ public class UserService {
         userModel.setCreatedAt(existingUser.getCreatedAt());
         userModel.setUpdatedAt(now);
         userModel.setPassword(existingUser.getPassword());
+        userModel.setRoles(existingUser.getRoles());
 
         if (!updateUserDto.getEmail().isEmpty()) {
             userModel.setEmail(updateUserDto.getEmail());
-        }
-
-        if (!updateUserDto.getRoles().isEmpty()) {
-            userModel.setRoles(Roles.valueOf(updateUserDto.getRoles()));
         }
 
         if (!updateUserDto.getName().isEmpty()) {
