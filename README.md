@@ -15,6 +15,14 @@ para administrar alunos, professores e cursos de uma universidade.
 # Setup da aplicação (local)
 
 ## Pré-requisito
+ 
+Ter instalado na máquina o `Git` para fazer o clone da aplicação. - [Clique aqui se você não tem instalado](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git).
+
+Fazer o clone da aplicação em seu computador
+```
+(HTTPS) git clone https://github.com/Manelitu/api-rest-university.git
+(SSH) git clone git@github.com:Manelitu/api-rest-university.git
+```
 
 Antes de rodar a aplicação é preciso garantir que as seguintes dependências estejam corretamente instaladas:
 ```
@@ -127,7 +135,6 @@ Segue abaixo as APIs disponíveis no projeto, e as permissões (ROLES):
     ADMIN
 ### Headers
     Authorization: Bearer {token}
-
 ### Request
          api/v1/users (GET)
 ### Response
@@ -141,7 +148,7 @@ Segue abaixo as APIs disponíveis no projeto, e as permissões (ROLES):
 ### Response
     ENTIDADE USERS
 ### Request
-    api/v1/users (POST)
+    api/v1/users (POST) & api/v1/users/no-auth (POST) (Essa segunda rota não precisa de autenticação e nenhuma ROLE)
 ### Body 
     {
     "name": "Emanuel Victor de Lima",
