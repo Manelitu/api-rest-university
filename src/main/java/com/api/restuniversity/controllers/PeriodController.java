@@ -1,6 +1,7 @@
 package com.api.restuniversity.controllers;
 
 import com.api.restuniversity.dtos.periods.PeriodDto;
+import com.api.restuniversity.dtos.periods.UpdatePeriodDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
@@ -60,7 +61,7 @@ public class PeriodController {
     @PatchMapping("/{id}")
     public ResponseEntity<Object> update(
             @PathVariable(value = "id") UUID id,
-            @RequestBody @Valid PeriodDto params
+            @RequestBody @Valid UpdatePeriodDto params
     ) throws NotFoundException, BadRequestException {
         return ResponseEntity.ok(periodService.update(id, params));
     }
