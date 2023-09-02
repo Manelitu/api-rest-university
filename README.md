@@ -15,6 +15,8 @@ para administrar alunos, professores e cursos de uma universidade.
 # Setup da aplicação (local)
 
 ## Pré-requisito
+ 
+Ter instalado na máquina o `Git` para fazer o clone da aplicação. - [Clique aqui se você não tem instalado](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git).
 
 Fazer o clone da aplicação em seu computador
 ```
