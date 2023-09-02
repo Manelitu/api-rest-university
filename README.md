@@ -16,6 +16,12 @@ para administrar alunos, professores e cursos de uma universidade.
 
 ## Pré-requisito
 
+Fazer o clone da aplicação em seu computador
+```
+(HTTPS) git clone https://github.com/Manelitu/api-rest-university.git
+(SSH) git clone git@github.com:Manelitu/api-rest-university.git
+```
+
 Antes de rodar a aplicação é preciso garantir que as seguintes dependências estejam corretamente instaladas:
 ```
 Docker 24.0.2
