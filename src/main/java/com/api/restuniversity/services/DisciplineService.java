@@ -1,23 +1,20 @@
 package com.api.restuniversity.services;
 
 import com.api.restuniversity.dtos.disciplines.DisciplineDto;
+import com.api.restuniversity.dtos.disciplines.UpdateDisciplineDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
-import com.api.restuniversity.models.CourseModel;
 import com.api.restuniversity.models.DisciplineModel;
 import com.api.restuniversity.models.PeriodModel;
-import com.api.restuniversity.repositories.CourseRepository;
 import com.api.restuniversity.repositories.DisciplineRepository;
 import com.api.restuniversity.repositories.PeriodRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,7 +43,6 @@ public class DisciplineService {
         BeanUtils.copyProperties(params, disciplineModel);
 
         disciplineModel.setPeriods(periodExists);
-        disciplineModel.setPeriod_uuid(params.getPeriodId());
 
         return disciplineRepository.save(disciplineModel);
     }
@@ -70,23 +66,22 @@ public class DisciplineService {
         discipline.setDisciplineId(id);
         discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setDescription(existingDiscipline.getDescription());
-        discipline.setPeriodOnUUID();
         discipline.setActive(false);
         return disciplineRepository.save(discipline);
     }
 
     @Transactional
-    public DisciplineModel update(UUID id, DisciplineDto params) throws NotFoundException, BadRequestException {
+    public DisciplineModel update(UUID id, UpdateDisciplineDto params) throws NotFoundException, BadRequestException {
         DisciplineModel existingDiscipline = disciplineRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(DisciplineModel.class, "Subject does not exist"));
 
         var discipline = new DisciplineModel();
+        BeanUtils.copyProperties(params, discipline);
         discipline.setDisciplineId(id);
         discipline.setPeriods(existingDiscipline.getPeriods());
         discipline.setDescription(existingDiscipline.getDescription());
         discipline.setActive(existingDiscipline.getActive());
-        discipline.setPeriodOnUUID();
-        BeanUtils.copyProperties(params, discipline);
+
         return disciplineRepository.save(discipline);
     }
 }

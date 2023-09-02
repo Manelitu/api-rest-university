@@ -1,6 +1,7 @@
 package com.api.restuniversity.controllers;
 
 import com.api.restuniversity.dtos.disciplines.DisciplineDto;
+import com.api.restuniversity.dtos.disciplines.UpdateDisciplineDto;
 import com.api.restuniversity.exceptions.BadRequestException;
 import com.api.restuniversity.exceptions.ConflictException;
 import com.api.restuniversity.exceptions.NotFoundException;
@@ -11,13 +12,10 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -63,7 +61,7 @@ public class DisciplineController {
     @PatchMapping("/{id}")
     public ResponseEntity<Object> update(
             @PathVariable(value = "id") UUID id,
-            @RequestBody @Valid DisciplineDto params
+            @RequestBody @Valid UpdateDisciplineDto params
     ) throws NotFoundException, BadRequestException {
         return ResponseEntity.ok(disciplineService.update(id, params));
     }
